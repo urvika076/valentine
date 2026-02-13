@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Be My Valentine?</title>
+
+<style>
+body {
+ background-image: url('valbg.jpeg');
+    background-size: cover;
+    background-position: center;
+            font-family: Garamond;
+    text-align: center;
+    padding-top: 100px;
+
+}
+
+.box {
+    background: #f2e0d2;
+    width: 60%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px pink;
+}
+
+h1 {
+    color: #9e182b;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+#yesBtn {
+    background-color: #9e182b;
+    color: white;
+}
+
+#noBtn {
+    background-color: #3e2723;
+    color: white;
+    position: absolute;
+
+    /* smooth bouncy feel */
+    transition: transform 0.6s cubic-bezier(0.25, 1.3, 0.5, 1);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Will You Be My Valentine? </h1>
+
+    <button id="yesBtn" onclick="goLetter()">Yes</button>
+    <button id="noBtn" onmouseover="runAway()">No</button>
+</div>
+
+<script>
+let yesSize = 18;
+
+function runAway() {
+
+    let btn = document.getElementById("noBtn");
+
+    // Read current transform position
+    let style = window.getComputedStyle(btn);
+    let matrix = new DOMMatrix(style.transform);
+
+    let currentX = matrix.m41;
+    let currentY = matrix.m42;
+
+    // Random movement in ANY direction
+    let moveX = (Math.random() - 0.5) * 300;
+    let moveY = (Math.random() - 0.5) * 300;
+
+    let x = currentX + moveX;
+    let y = currentY + moveY;
+
+    // Screen limits
+    let maxX = window.innerWidth - btn.offsetWidth - 10;
+    let maxY = window.innerHeight - btn.offsetHeight - 10;
+
+    // 🌟 Bounce back inside screen
+    if (x < 0) x = 20;
+    if (y < 0) y = 20;
+
+    if (x > maxX) x = maxX - 20;
+    if (y > maxY) y = maxY - 20;
+
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+
+    // YES gets bigger each time
+    yesSize += 5;
+    document.getElementById("yesBtn").style.fontSize = yesSize + "px";
+}
+
+function goLetter() {
+    window.location.href = "letter.html";
+}
+</script>
+
+</body>
+</html>
